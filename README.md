@@ -195,7 +195,7 @@ Introduce mechanisms to identify outdated claims, changing responsibilities, con
 https://github.com/Sonakshi-Nazarkar/DNYANEX-Advanced
 
 **Live Application:**  
-https://dnyanex-platform.onrender.com
+https://dnyanex-advanced.onrender.com
 
 **Project Category:** AI / Knowledge Management / Project Intelligence
 
