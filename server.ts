@@ -43,7 +43,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = 3000;
+const PORT = Number(process.env.PORT) || 3000;
 
 app.use(express.json({ limit: '15mb' }));
 app.use(express.urlencoded({ extended: true, limit: '15mb' }));
@@ -705,10 +705,10 @@ function buildDependencyGraph(projectId: string, user?: AuthUser): DependencyGra
         isConflict || colType === 'BLOCKER' || (colType === 'RISK' && !c.owner)
           ? 'CRITICAL'
           : colType === 'RISK' || !c.owner
-          ? 'HIGH'
-          : colType === 'DECISION' || colType === 'DEPENDENCY'
-          ? 'MEDIUM'
-          : 'LOW';
+            ? 'HIGH'
+            : colType === 'DECISION' || colType === 'DEPENDENCY'
+              ? 'MEDIUM'
+              : 'LOW';
 
       nodes.push({
         id: `claim_${c.id}`,
@@ -1840,8 +1840,8 @@ app.post(
     const conflictsContext =
       projectConflicts.length > 0
         ? projectConflicts
-            .map(cnf => `- [${cnf.id}] (${cnf.status}): ${cnf.topic} — ${cnf.explanation}`)
-            .join('\n')
+          .map(cnf => `- [${cnf.id}] (${cnf.status}): ${cnf.topic} — ${cnf.explanation}`)
+          .join('\n')
         : 'None';
 
     const gapsContext =
@@ -1851,9 +1851,9 @@ app.post(
 
     const recentHistoryText = Array.isArray(history)
       ? history
-          .slice(-6)
-          .map((h: any) => `${h.role === 'user' ? 'USER' : 'ASSISTANT'}: ${String(h.content || '').slice(0, 500)}`)
-          .join('\n')
+        .slice(-6)
+        .map((h: any) => `${h.role === 'user' ? 'USER' : 'ASSISTANT'}: ${String(h.content || '').slice(0, 500)}`)
+        .join('\n')
       : '';
 
     const assistantPrompt = `Project: ${proj.name}
